@@ -14,7 +14,7 @@ const UseForecaste = () => {
     fetch(
        `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${api_key}`
        ).then((response)=>response.json()).then((data)=>setOptions(data)
-       )
+       ).catch((error)=>console.log(error))
     }
 
     const onInputChange =(e:ChangeEvent<HTMLInputElement>)=>{
@@ -35,7 +35,7 @@ const UseForecaste = () => {
         } 
         setForcast(forecastData)
         }
-      )
+      ).catch((error)=>console.log(error))
 
     }
 
