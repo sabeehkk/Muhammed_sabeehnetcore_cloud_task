@@ -16,7 +16,7 @@ type Props = {
   data: forecastType
   unit: string
 }
-const Forecast = ({ data, unit }: Props): JSX.Element => {
+const Forecast = ({ data, unit }: Props) : JSX.Element => {
   console.log(data, 'forecast data')
 
   const today = data.list.list[0]
@@ -134,5 +134,4 @@ const Forecast = ({ data, unit }: Props): JSX.Element => {
     </div>
   )
 }
-
 export default Forecast
