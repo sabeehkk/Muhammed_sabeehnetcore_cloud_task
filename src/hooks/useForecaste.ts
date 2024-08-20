@@ -1,18 +1,19 @@
 import {useState,useEffect,ChangeEvent} from 'react'
 import { optionType,forecastType } from '../types/type'
-import { types } from 'util'
 
 const UseForecaste = () => {
     const [term,setTerm]=useState<string>('')
     const [options,setOptions]=useState<[]>([])
     const [city,setCity]=useState<optionType | null>(null)
     const [forCaste,setForcast]=useState<forecastType | null>(null)
-    console.log(options,'ssssssssssssssss');
-    
+    const [unit, setUnit] = useState<string>("metric");
+    console.log(unit,'ssssssssssssssss');
     let api_key= '56f54a7afc223c83f785e49750741896'
+
     const getSearchOptions =(value:string)=>{
+      if(!value) return 
     fetch(
-       `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${api_key}`
+      `http://api.openweathermap.org/geo/1.0/direct?q=${value},IN&limit=5&appid=${api_key}`
        ).then((response)=>response.json()).then((data)=>setOptions(data)
        ).catch((error)=>console.log(error))
     }
@@ -20,14 +21,13 @@ const UseForecaste = () => {
     const onInputChange =(e:ChangeEvent<HTMLInputElement>)=>{
       const {value} = e.target
       setTerm(value)
-      if(value ===''){
-        return
-      }
+      if(value ==='') return
       getSearchOptions(value)        
     }
 
+
     const getForecast =(city : optionType)=>{
-      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${api_key}`)
+      fetch( `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=${unit}&appid=${api_key}`)
       .then((response)=>response.json()).then((data)=>{
         const forecastData = {
             ...data.city,
@@ -44,12 +44,27 @@ const UseForecaste = () => {
         return
       }
       getForecast(city)
+      localStorage.setItem('selectedCity', JSON.stringify(city));
     }
 
     const onOptionSelect=(option:optionType)=>{
         console.log(option.name);
         setCity(option)
+        localStorage.setItem("selectedCity", JSON.stringify(option));
     }
+
+
+    useEffect(() => {
+      const savedCity = localStorage.getItem('selectedCity');
+  
+      if (savedCity) {
+        const cityOption = JSON.parse(savedCity);
+        setCity(cityOption);
+        setTerm(cityOption.name);
+        getForecast(cityOption);
+      }
+    }, []);
+
         useEffect(()=>{
           if(city){
             setTerm(city.name)
@@ -57,7 +72,8 @@ const UseForecaste = () => {
           }
         },[city])
      return {
-        options,term,onInputChange,forCaste,onOptionSelect,onSubmit
+        options,term,onInputChange,forCaste,onOptionSelect,onSubmit,unit, 
+        setUnit,
      }
     
 }
