@@ -59,6 +59,7 @@ const UseForecaste = () => {
         setTerm(cityOption.name);
         getForecast(cityOption);
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
         useEffect(()=>{
