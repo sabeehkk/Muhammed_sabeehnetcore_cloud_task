@@ -12,7 +12,7 @@ const UseForecaste = () => {
     const getSearchOptions =(value:string)=>{
       if(!value) return 
     fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${value},IN&limit=5&appid=${api_key}`
+      `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${api_key}`
        ).then((response)=>response.json()).then((data)=>setOptions(data)
        ).catch((error)=>console.log(error))
     }
