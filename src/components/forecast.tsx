@@ -1,4 +1,3 @@
-import React from 'react'
 import { forecastType } from '../types/type'
 import Degree from '../utils/Icons/Degree'
 import Sunrise from '../utils/Icons/Sunrise'
