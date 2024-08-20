@@ -7,7 +7,6 @@ const UseForecaste = () => {
     const [city,setCity]=useState<optionType | null>(null)
     const [forCaste,setForcast]=useState<forecastType | null>(null)
     const [unit, setUnit] = useState<string>("metric");
-    console.log(unit,'ssssssssssssssss');
     let api_key= '56f54a7afc223c83f785e49750741896'
 
     const getSearchOptions =(value:string)=>{
@@ -25,7 +24,6 @@ const UseForecaste = () => {
       getSearchOptions(value)        
     }
 
-
     const getForecast =(city : optionType)=>{
       fetch( `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=${unit}&appid=${api_key}`)
       .then((response)=>response.json()).then((data)=>{
@@ -36,7 +34,6 @@ const UseForecaste = () => {
         setForcast(forecastData)
         }
       ).catch((error)=>console.log(error))
-
     }
 
     const onSubmit=()=>{
@@ -56,7 +53,6 @@ const UseForecaste = () => {
 
     useEffect(() => {
       const savedCity = localStorage.getItem('selectedCity');
-  
       if (savedCity) {
         const cityOption = JSON.parse(savedCity);
         setCity(cityOption);
@@ -75,7 +71,6 @@ const UseForecaste = () => {
         options,term,onInputChange,forCaste,onOptionSelect,onSubmit,unit, 
         setUnit,
      }
-    
 }
 
 export default UseForecaste

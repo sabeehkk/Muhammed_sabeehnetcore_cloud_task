@@ -1,9 +1,9 @@
 import React from 'react'
 import { forecastType } from '../types/type'
-import Degree from './utils/Icons/Degree'
-import Sunrise from './utils/Icons/Sunrise'
-import Sunset from './utils/Icons/Sunset'
-import Tile from './utils/Icons/Tile'
+import Degree from '../utils/Icons/Degree'
+import Sunrise from '../utils/Icons/Sunrise'
+import Sunset from '../utils/Icons/Sunset'
+import Tile from '../utils/Icons/Tile'
 
 import {
   getHumidityValue,
@@ -83,7 +83,6 @@ const Forecast = ({ data, unit }: Props): JSX.Element => {
           <div className="w-[140px] text-xs font-bold flex flex-col items-center bg-white/20 backdrop-blur-ls rounded drop-shadow-lg py-4 mb-5">
             <Sunset /> <span className="mt-2">{getSunTime(data.sunset)}</span>
           </div>
-
           <Tile
             icon="wind"
             title="Wind"
@@ -92,7 +91,6 @@ const Forecast = ({ data, unit }: Props): JSX.Element => {
               Math.round(today.wind.deg)
             )}, gusts ${convertWindSpeed(today.wind.gust)}`}
           />
-
           <Tile
             icon="feels"
             title="Feels like"
@@ -125,7 +123,6 @@ const Forecast = ({ data, unit }: Props): JSX.Element => {
               Math.round(today.main.pressure) < 1013 ? 'Lower' : 'Higher'
             } than standard`}
           />
-
           <Tile
             icon="visibility"
             title="Visibility"
